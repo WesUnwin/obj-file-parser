@@ -1,0 +1,30 @@
+{
+  "name": "obj-file-parser",
+  "version": "0.0.0",
+  "description": "Wavefront 3D Object File (.OBJ) Parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WesUnwin/obj-file-parser.git"
+  },
+  "keywords": [
+    "obj",
+    "file",
+    "3D",
+    "parser",
+    "wavefront",
+    "mtl"
+  ],
+  "author": "Wesley Unwin <wes_unwin@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WesUnwin/obj-file-parser/issues"
+  },
+  "homepage": "https://github.com/WesUnwin/obj-file-parser#readme",
+  "devDependencies": {
+    "jest": "^20.0.4"
+  }
+}
