@@ -1,6 +1,6 @@
 {
   "name": "obj-file-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Wavefront 3D Object File (.OBJ) Parser",
   "main": "index.js",
   "scripts": {
