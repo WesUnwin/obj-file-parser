@@ -14,6 +14,7 @@ class OBJFile {
       materialLibraries: []
     };
     this.currentMaterial = '';
+    this.currentGroup = '';
   }
 
   parse() {
@@ -31,7 +32,7 @@ class OBJFile {
           this._parseObject(lineItems);
           break;
         case 'g': // Start a new polygon group
-          throw "NOT IMPLEMENTED";
+          this._parseGroup(lineItems);
           break;
         case 'v':  // Define a vertex for the current model
           this._parseVertexCoords(lineItems);
@@ -70,6 +71,7 @@ class OBJFile {
         vertexNormals: [],
         faces: []
       });
+      this.currentGroup = '';
     }
 
     return this.result.models[this.result.models.length - 1];
@@ -92,6 +94,14 @@ class OBJFile {
       vertexNormals: [],
       faces: []
     });
+    this.currentGroup = '';
+  }
+
+  _parseGroup(lineItems) {
+    if(lineItems.length != 2)
+      throw "Group statements must have exactly 1 argument (eg. g group_1)";
+
+    this.currentGroup = lineItems[1];
   }
 
   _parseVertexCoords(lineItems) {
@@ -125,6 +135,7 @@ class OBJFile {
     
     let face = {
       material: this.currentMaterial,
+      group: this.currentGroup,
       vertices: []
     };
 

@@ -99,4 +99,24 @@ describe('OBJ File Parser', () => {
       expect(materialLibs).toEqual(['lib1', 'lib2']);  
     });
   });
+
+  describe('Groups', () => {
+    it('assigns each face to a group called "" by default', () => {
+      const fileContents = "f 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.faces[0].group).toBe('');
+    });
+
+    it('assigns each face to the group indicated by the preceding g statement', () => {
+      const fileContents = "g group1\nf 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.faces[0].group).toBe('group1');
+    });
+
+    it('resets the current group to "" when starting a new object', () => {
+      const fileContents = "g group1\nf 1 2 3\no newObj\nf 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[1];
+      expect(model.faces[0].group).toBe('');
+    });
+  });
 });

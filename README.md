@@ -57,6 +57,7 @@ are returned in the following format:
       faces: [
         {
           material: 'brick',
+          group: 'group1',
           vertices: [
             { vertexIndex: 1, textureCoordsIndex: 1, vertexNormalIndex: 1 },
             ...
