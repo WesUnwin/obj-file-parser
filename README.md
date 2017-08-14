@@ -8,6 +8,7 @@ in javascript and distributed freely as an NPM package.
   * Support for (.OBJ) files only, see mtl-file-parser for mtl files
   * Case insensitive, flexible parser
   * Simple JS object output
+  * Polygon group support
 
 
 ## Installation

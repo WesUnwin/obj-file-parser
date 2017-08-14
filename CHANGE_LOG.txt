@@ -1,0 +1,16 @@
+0.0.0
+-----
+ - Initial version
+
+0.1.0
+-----
+ - Refactor output to {} structure,
+   as opposed to using Model class instances.
+
+0.1.1
+-----
+ - Corrections to README
+
+0.2.0
+-----
+ - Added support for polygon groups
