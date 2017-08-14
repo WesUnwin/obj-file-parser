@@ -12,8 +12,9 @@ in javascript and distributed freely as an NPM package.
 
 ## Installation
 
+```javascript
 npm install --save obj-file-parser
-
+```
 
 ## Usage
 
@@ -33,7 +34,7 @@ const output = objFile.parse(); // see description below
 The extracted model and material library references
 are returned in the following format:
 
-```javascript
+```
 {
 	models: [
 	  {
