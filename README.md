@@ -36,35 +36,35 @@ are returned in the following format:
 
 ```
 {
-	models: [
-	  {
-	  	name: 'unit_cube',
-	  	vertices: [
-	      { x: 1.0, 2.0, 3.0 },
-	      ...
-	  	],
-	  	textureCoords: [
-	      { u: 1.0, v: 2.0, w: 3.0 },
-	      ...
-	  	],
-	  	vertexNormals: [
-	      { x: 1.0, y: 2.0, z: 3.0 },
-	      ...
-	  	],
-	  	faces: [
-	  		{
-	  			material: 'brick',
-	  		  vertices: [
+  models: [
+    {
+      name: 'unit_cube',
+      vertices: [
+        { x: 1.0, 2.0, 3.0 },
+        ...
+      ],
+      textureCoords: [
+        { u: 1.0, v: 2.0, w: 3.0 },
+        ...
+      ],
+      vertexNormals: [
+        { x: 1.0, y: 2.0, z: 3.0 },
+        ...
+      ],
+      faces: [
+        {
+          material: 'brick',
+          vertices: [
             { vertexIndex: 1, textureCoordsIndex: 1, vertexNormalIndex: 1 },
             ...
-	  		  ]
-	  		}
-	  	]
-	  },
-	  {
-	    ...
-	  }
-	],
+          ]
+        }
+      ]
+    },
+    {
+      ...
+    }
+  ],
 
   materialLibraries: [
     'mat_lib1.mtl',
