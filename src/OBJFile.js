@@ -2,10 +2,10 @@
 
 class OBJFile {
 
-  constructor(fileContents, defaultModelName = 'untitled') {
+  constructor(fileContents, defaultModelName) {
     this._reset();
     this.fileContents = fileContents;
-    this.defaultModelName = defaultModelName;
+    this.defaultModelName = (defaultModelName || 'untitled');
   }
 
   _reset() {
