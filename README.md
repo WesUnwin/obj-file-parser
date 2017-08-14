@@ -31,7 +31,7 @@ const output = objFile.parse(); // see description below
 
 
 ## Output
-The extracted model and material library references
+The extracted model data and list of material library references
 are returned in the following format:
 
 ```
