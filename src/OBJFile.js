@@ -1,20 +1,19 @@
 'use strict';
 
-const Model = require('./Model');
-const Polygon = require('./Polygon');
-
-
 class OBJFile {
 
-  constructor(fileContents) {
+  constructor(fileContents, defaultModelName = 'untitled') {
     this._reset();
     this.fileContents = fileContents;
+    this.defaultModelName = defaultModelName;
   }
 
   _reset() {
-    this.models = [];
+    this.result = {
+      models: [],
+      materialLibraries: []
+    };
     this.currentMaterial = '';
-    this.materialLibs = [];
   }
 
   parse() {
@@ -59,21 +58,21 @@ class OBJFile {
 
     }
 
-    return {
-      models: this.models,
-      materialLibs: this.materialLibs
-    };
-  }
-
-  _getDefaultModelName() {
-    return 'default';
+    return this.result;
   }
 
   _currentModel() {
-    if(this.models.length == 0)
-      this.models.push(new Model(this._getDefaultModelName()));
+    if(this.result.models.length == 0) {
+      this.result.models.push({
+        name: this.defaultModelName,
+        vertices: [],
+        textureCoords: [],
+        vertexNormals: [],
+        faces: []
+      });
+    }
 
-    return this.models[this.models.length - 1];
+    return this.result.models[this.result.models.length - 1];
   }
 
   _stripComments(lineString) {
@@ -86,7 +85,13 @@ class OBJFile {
 
   _parseObject(lineItems) {
     let modelName = lineItems.length >= 2 ? lineItems[1] : this._getDefaultModelName();
-    this.models.push(new Model(modelName)); // Attach to list of models to be returned
+    this.result.models.push({
+      name: modelName,
+      vertices: [],
+      textureCoords: [],
+      vertexNormals: [],
+      faces: []
+    });
   }
 
   _parseVertexCoords(lineItems) {
@@ -94,7 +99,7 @@ class OBJFile {
     let y = lineItems.length >= 3 ? parseFloat(lineItems[2]) : 0.0;
     let z = lineItems.length >= 4 ? parseFloat(lineItems[3]) : 0.0;
     
-    this._currentModel().addVertex(x, y, z);
+    this._currentModel().vertices.push({ x: x, y: y, z: z });
   }
 
   _parseTextureCoords(lineItems) {
@@ -102,7 +107,7 @@ class OBJFile {
     let v = lineItems.length >= 3 ? parseFloat(lineItems[2]) : 0.0;
     let w = lineItems.length >= 4 ? parseFloat(lineItems[3]) : 0.0;
     
-    this._currentModel().addTextureCoords(u, v, w);
+    this._currentModel().textureCoords.push({ u: u, v: v, w: w });
   }
 
   _parseVertexNormal(lineItems) {
@@ -110,7 +115,7 @@ class OBJFile {
     let y = lineItems.length >= 3 ? parseFloat(lineItems[2]) : 0.0;
     let z = lineItems.length >= 4 ? parseFloat(lineItems[3]) : 0.0;
     
-    this._currentModel().addVertexNormal(x, y, z);
+    this._currentModel().vertexNormals.push({ x: x, y: y, z: z });
   }
 
   _parsePolygon(lineItems) {
@@ -118,7 +123,11 @@ class OBJFile {
     if(totalVertices < 3)
       throw ("Face statement has less than 3 vertices" + this.filePath + this.lineNumber);
     
-    let polygon = new Polygon(this.currentMaterial);
+    let face = {
+      material: this.currentMaterial,
+      vertices: []
+    };
+
     for(let i = 0; i<totalVertices; i++)
     {
       let vertexString = lineItems[i + 1];
@@ -144,14 +153,18 @@ class OBJFile {
       if (vertexIndex < 0)
         vertexIndex = this._currentModel().vertices.length + 1 + vertexIndex;
 
-      polygon.addVertex(vertexIndex, textureCoordsIndex, vertexNormalIndex);
+      face.vertices.push({
+        vertexIndex: vertexIndex,
+        textureCoordsIndex: textureCoordsIndex,
+        vertexNormalIndex: vertexNormalIndex
+      });
     }
-    this._currentModel().addPolygon(polygon);
+    this._currentModel().faces.push(face);
   }
 
   _parseMtlLib(lineItems) {
     if(lineItems.length >= 2)
-      this.materialLibs.push(lineItems[1]);
+      this.result.materialLibraries.push(lineItems[1]);
   }
 
   _parseUseMtl(lineItems) {

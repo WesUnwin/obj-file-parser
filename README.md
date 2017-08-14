@@ -2,6 +2,7 @@
 Open source, re-usable Wavefront 3D object file (.OBJ) parser written
 in javascript and distributed freely as an NPM package.
 
+
 ## Features
 
   * Support for (.OBJ) files only, see mtl-file-parser for mtl files
@@ -12,6 +13,20 @@ in javascript and distributed freely as an NPM package.
 ## Installation
 
 npm install --save obj-file-parser
+
+
+## Usage
+
+```javascript
+const fileContents =
+  'v 0 0 0 \n' +
+  'v 0 1 0 \n' +
+  'v 1 0 0 \n';
+
+const objFile = new OBJFile(fileContents);
+
+const output = objFile.parse(); // see description below
+```
 
 
 ## Output
@@ -37,6 +52,7 @@ are returned in the following format:
 	  	],
 	  	faces: [
 	  		{
+	  			material: 'brick',
 	  		  vertices: [
             { vertexIndex: 1, textureCoordsIndex: 1, vertexNormalIndex: 1 },
             ...
