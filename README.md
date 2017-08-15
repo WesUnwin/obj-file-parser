@@ -85,3 +85,7 @@ obj-file-parser is being actively maintained and developed, and is
 expected to reach stability soon. Comments, feedback and bug reports
 always welcome.
 
+## Donation
+Help me make this obj-file-parser and other tools better!
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](paypal.me/WesUnwin)
