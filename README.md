@@ -88,4 +88,4 @@ always welcome.
 ## Donation
 Help me make this obj-file-parser and other tools better!
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](paypal.me/WesUnwin)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/WesUnwin)
