@@ -14,3 +14,7 @@
 0.2.0
 -----
  - Added support for polygon groups
+
+0.3.0
+-----
+ - Added support for smoothing groups

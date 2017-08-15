@@ -119,4 +119,30 @@ describe('OBJ File Parser', () => {
       expect(model.faces[0].group).toBe('');
     });
   });
+
+  describe('Smoothing Groups', () => {
+    it('assigns each face to a smoothing group 0 (no smoothing) by default', () => {
+      const fileContents = "f 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.faces[0].smoothingGroup).toBe(0);
+    });
+
+    it('assigns each face to the smoothing group indicated by the preceding s statement', () => {
+      const fileContents = "s 123\nf 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.faces[0].smoothingGroup).toBe(123);
+    });
+
+    it('resets the current smoothing group to 0 when starting a new object', () => {
+      const fileContents = "s 2\nf 1 2 3\no newObj\nf 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[1];
+      expect(model.faces[0].smoothingGroup).toBe(0);
+    });
+
+    it('resets the current smoothing group to 0 after an "s off" statement', () => {
+      const fileContents = "s 2\nf 1 2 3\ns off\nf 1 2 3";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.faces[1].smoothingGroup).toBe(0);
+    });
+  });
 });

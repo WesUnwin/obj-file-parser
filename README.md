@@ -9,6 +9,7 @@ in javascript and distributed freely as an NPM package.
   * Case insensitive, flexible parser
   * Simple JS object output
   * Polygon group support
+  * Smoothing group support
 
 
 ## Installation
@@ -59,6 +60,7 @@ are returned in the following format:
         {
           material: 'brick',
           group: 'group1',
+          smoothingGroup: 0,
           vertices: [
             { vertexIndex: 1, textureCoordsIndex: 1, vertexNormalIndex: 1 },
             ...

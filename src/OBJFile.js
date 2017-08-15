@@ -15,6 +15,7 @@ class OBJFile {
     };
     this.currentMaterial = '';
     this.currentGroup = '';
+    this.smoothingGroup = 0;
   }
 
   parse() {
@@ -72,6 +73,7 @@ class OBJFile {
         faces: []
       });
       this.currentGroup = '';
+      this.smoothingGroup = 0;
     }
 
     return this.result.models[this.result.models.length - 1];
@@ -95,6 +97,7 @@ class OBJFile {
       faces: []
     });
     this.currentGroup = '';
+    this.smoothingGroup = 0;
   }
 
   _parseGroup(lineItems) {
@@ -136,6 +139,7 @@ class OBJFile {
     let face = {
       material: this.currentMaterial,
       group: this.currentGroup,
+      smoothingGroup: this.smoothingGroup,
       vertices: []
     };
 
@@ -184,7 +188,11 @@ class OBJFile {
   }
 
   _parseSmoothShadingStatement(lineItems) {
-    throw "NOT IMPLEMENTED";
+    if(lineItems.length != 2)
+      throw "Smoothing group statements must have exactly 1 argument (eg. s <number|off>)";
+
+    const groupNumber = (lineItems[1].toLowerCase() == 'off') ? 0 : parseInt(lineItems[1]);
+    this.smoothingGroup = groupNumber;
   }
 }
 
