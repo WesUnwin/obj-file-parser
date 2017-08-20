@@ -10,7 +10,8 @@ in javascript and distributed freely as an NPM package.
   * Simple JS object output
   * Polygon group support
   * Smoothing group support
-
+  * ES5 syntax for support across virtually all platforms
+  * No dependencies
 
 ## Installation
 
