@@ -2,9 +2,11 @@
   "name": "obj-file-parser",
   "version": "0.3.0",
   "description": "Wavefront 3D Object File (.OBJ) Parser",
-  "main": "index.js",
+  "main": "./dist/OBJFile.js",
   "scripts": {
-    "test": "jest"
+    "build": "babel src --presets babel-preset-es2015 --out-dir dist",
+    "test": "jest",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,8 @@
   },
   "homepage": "https://github.com/WesUnwin/obj-file-parser#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "jest": "^20.0.4"
   }
 }
