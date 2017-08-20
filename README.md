@@ -1,5 +1,4 @@
 [![npm version](https://badge.fury.io/js/obj-file-parser.svg)](https://badge.fury.io/js/obj-file-parser)
-
 [![Build Status](https://travis-ci.org/WesUnwin/obj-file-parser.svg?branch=master)](https://travis-ci.org/WesUnwin/obj-file-parser)
 
 # obj-file-parser
