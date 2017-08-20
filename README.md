@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/WesUnwin/obj-file-parser.svg?branch=master)](https://travis-ci.org/WesUnwin/obj-file-parser)
+
 # obj-file-parser
 Open source, re-usable Wavefront 3D object file (.OBJ) parser written
 in javascript and distributed freely as an NPM package.
