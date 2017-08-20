@@ -18,6 +18,14 @@ describe('OBJ File Parser', () => {
     });
   });
 
+  describe('Blank lines', () => {
+    it('ignores blank lines', () => {
+      const fileContents = "v 1.0 2.0 3.0\n    \nv 4.0 5.5 6.0";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.vertices.length).toBe(2);
+    });
+  });
+
   describe('Vertex Definition', () => {
     it('v statements define a vertex', () => {
       const fileContents = "v 1.0 2.0 3.0\nv 4.0 5.5 6.0"
