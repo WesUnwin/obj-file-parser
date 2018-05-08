@@ -178,4 +178,4 @@ class OBJFile {
   }
 }
 
-module.exports = OBJFile;
+export default OBJFile;
