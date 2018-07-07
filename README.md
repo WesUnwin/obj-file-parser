@@ -85,8 +85,7 @@ are returned in the following format:
 ```
 
 ## More to come
-obj-file-parser is being actively maintained and developed, and is
-expected to reach stability soon. Comments, feedback and bug reports
+obj-file-parser is being actively maintained and developed. Comments, feedback and bug reports
 always welcome.
 
 ## Donation
