@@ -81,7 +81,7 @@ class OBJFile {
   }
 
   _parseObject(lineItems) {
-    const modelName = lineItems.length >= 2 ? lineItems[1] : this._getDefaultModelName();
+    const modelName = lineItems.length >= 2 ? lineItems[1] : this.defaultModelName;
     this.result.models.push({
       name: modelName,
       vertices: [],
