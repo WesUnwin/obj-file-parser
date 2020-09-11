@@ -3,6 +3,19 @@
 const OBJFile = require('../src/OBJFile');
 
 describe('OBJ File Parser', () => {
+  describe('Object Name', () => {
+    it('assigns objects the default name "untitled" if no object name was declared', () => {
+      const fileContents = "v 1.0 2.0 3.0";
+      const modelName = new OBJFile(fileContents).parse().models[0].name;
+      expect(modelName).toBe('untitled');
+    });
+
+    it('assigns objects the name specified by the o statement', () => {
+      const fileContents = "o cube";
+      const modelName = new OBJFile(fileContents).parse().models[0].name;
+      expect(modelName).toBe('cube');
+    });
+  });
 
   describe('Comments', () => {
     it('ignores the remainders of a line after #', () => {
