@@ -138,13 +138,13 @@ class OBJFile {
       const vertexString = lineItems[i + 1];
       const vertexValues = vertexString.split('/');
 
-      if (vertexValues.length < 1 || vertexValues.length > 3) { throw (`Two many values (separated by /) for a single vertex${this.filePath}${this.lineNumber}`); }
+      if (vertexValues.length < 1 || vertexValues.length > 3) { throw (`Too many values (separated by /) for a single vertex${this.filePath}${this.lineNumber}`); }
 
       let vertexIndex = 0;
       let textureCoordsIndex = 0;
       let vertexNormalIndex = 0;
       vertexIndex = parseInt(vertexValues[0]);
-      if (vertexValues.length > 1 && (!vertexValues[1] == '')) { textureCoordsIndex = parseInt(vertexValues[1]); }
+      if (vertexValues.length > 1 && (vertexValues[1] != '')) { textureCoordsIndex = parseInt(vertexValues[1]); }
       if (vertexValues.length > 2) { vertexNormalIndex = parseInt(vertexValues[2]); }
 
       if (vertexIndex == 0) { throw 'Faces uses invalid vertex index of 0'; }
