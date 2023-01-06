@@ -46,6 +46,9 @@ class OBJFile {
         case 'vn': // Define a vertex normal for the current model
           this._parseVertexNormal(lineItems);
           break;
+        case 'l': // Define a line for the current model
+          this._parseLine(lineItems);
+          break;
         case 's': // Smooth shading statement
           this._parseSmoothShadingStatement(lineItems);
           break;
@@ -87,7 +90,8 @@ class OBJFile {
       vertices: [],
       textureCoords: [],
       vertexNormals: [],
-      faces: []
+      faces: [],
+      lines: []
     });
     this.currentGroup = '';
     this.smoothingGroup = 0;
@@ -121,6 +125,31 @@ class OBJFile {
     const z = lineItems.length >= 4 ? parseFloat(lineItems[3]) : 0.0;
 
     this._currentModel().vertexNormals.push({ x, y, z });
+  }
+
+  _parseLine(lineItems) {
+    const totalVertices = (lineItems.length - 1);
+    if (totalVertices < 2) { throw (`Line statement has less than 2 vertices${this.filePath}${this.lineNumber}`); }
+
+    const line = [];
+
+    for (let i = 0; i < totalVertices; i += 1) {
+      const vertexString = lineItems[i + 1];
+      const vertexValues = vertexString.split('/');
+
+      if (vertexValues.length < 1 || vertexValues.length > 2) { throw (`Too many values (separated by /) for a single vertex${this.filePath}${this.lineNumber}`); }
+
+      let vertexIndex = 0;
+      let textureCoordsIndex = 0;
+      vertexIndex = parseInt(vertexValues[0]);
+      if (vertexValues.length > 1 && (vertexValues[1] != '')) { textureCoordsIndex = parseInt(vertexValues[1]); }
+
+      line.push({
+        vertexIndex,
+        textureCoordsIndex
+      });
+    }
+    this._currentModel().lines.push(line);
   }
 
   _parsePolygon(lineItems) {
