@@ -72,7 +72,8 @@ describe('OBJ File Parser', () => {
   describe('Polygon Definition', () => {
     it('f statements throw an error if given less than 3 vertices', () => {
       const fileContents = "f 1 2";
-      expect(new OBJFile(fileContents).parse).toThrow();
+      const obj = new OBJFile(fileContents);
+      expect(obj.parse.bind(obj)).toThrow("Face statement has less than 3 vertices");
     });
 
     it('f statements with single values define a face with the given vertex indices', () => {
