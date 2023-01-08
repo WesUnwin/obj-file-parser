@@ -67,15 +67,21 @@ class OBJFile {
     return this.result;
   }
 
+  _createNewModel(name = this.defaultModelName) {
+    return {
+      name,
+      vertices: [],
+      textureCoords: [],
+      vertexNormals: [],
+      faces: [],
+      lines: []
+    };
+  }
+
   _currentModel() {
     if (this.result.models.length == 0) {
-      this.result.models.push({
-        name: this.defaultModelName,
-        vertices: [],
-        textureCoords: [],
-        vertexNormals: [],
-        faces: []
-      });
+      const defaultModel = this._createNewModel();
+      this.result.models.push(defaultModel);
       this.currentGroup = '';
       this.smoothingGroup = 0;
     }
@@ -85,14 +91,8 @@ class OBJFile {
 
   _parseObject(lineItems) {
     const modelName = lineItems.length >= 2 ? lineItems[1] : this.defaultModelName;
-    this.result.models.push({
-      name: modelName,
-      vertices: [],
-      textureCoords: [],
-      vertexNormals: [],
-      faces: [],
-      lines: []
-    });
+    const model = this._createNewModel(modelName);
+    this.result.models.push(model);
     this.currentGroup = '';
     this.smoothingGroup = 0;
   }
