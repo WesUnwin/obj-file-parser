@@ -69,10 +69,67 @@ describe('OBJ File Parser', () => {
     });
   });
 
+  describe('Line Definition', () => {
+    it('all models have lines property', () => {
+      const fileContents = "o lineseg";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.lines).not.toBe(undefined);
+    });
+
+    it('l statements are supported', () => {
+      const fileContents = "o lineseg\nv 1.0 2.0 -1.0\nv 3.0 2.0 0.0\nv 1.0 4.0 0.0\nl 1 3\nl 3 2";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.lines.length).toBe(2);
+      expect(model.lines[0]).toEqual([
+        { vertexIndex: 1, textureCoordsIndex: 0 },
+        { vertexIndex: 3, textureCoordsIndex: 0 }
+      ]);
+      expect(model.lines[1]).toEqual([
+        { vertexIndex: 3, textureCoordsIndex: 0 },
+        { vertexIndex: 2, textureCoordsIndex: 0 }
+      ]);
+    });
+
+    it('l statements with n entries', () => {
+      const fileContents = "o lineseg\nv 1.0 2.0 -1.0\nv 3.0 2.0 0.0\nv 1.0 4.0 0.0\nl 1 3 2";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.lines.length).toBe(1);
+      expect(model.lines[0]).toEqual([
+        { vertexIndex: 1, textureCoordsIndex: 0 },
+        { vertexIndex: 3, textureCoordsIndex: 0 },
+        { vertexIndex: 2, textureCoordsIndex: 0 }
+      ]);
+    });
+
+    it('l statements with texture coords', () => {
+      const fileContents = "o lineseg\nl 1/4 3/6 2/5";
+      const model = new OBJFile(fileContents).parse().models[0];
+      expect(model.lines.length).toBe(1);
+      expect(model.lines[0]).toEqual([
+        { vertexIndex: 1, textureCoordsIndex: 4 },
+        { vertexIndex: 3, textureCoordsIndex: 6 },
+        { vertexIndex: 2, textureCoordsIndex: 5 }
+      ]);
+    });
+
+    it('l statements throws an error if given less than 2 vertices', () => {
+      const fileContents = "l 1";
+      const obj = new OBJFile(fileContents);
+      expect(obj.parse.bind(obj)).toThrow("Line statement has less than 2 vertices");
+    });
+
+    it('l statements throws an error if vertex has more than 1 slash', () => {
+      const fileContents = "l 1//7 2//8";
+      const obj = new OBJFile(fileContents);
+      expect(obj.parse.bind(obj)).toThrow("Too many values (separated by /) for a single vertex");
+    });
+  });
+
   describe('Polygon Definition', () => {
     it('f statements throw an error if given less than 3 vertices', () => {
       const fileContents = "f 1 2";
-      expect(new OBJFile(fileContents).parse).toThrow();
+      const obj = new OBJFile(fileContents);
+      expect(obj.parse.bind(obj)).toThrow("Face statement has less than 3 vertices");
     });
 
     it('f statements with single values define a face with the given vertex indices', () => {
