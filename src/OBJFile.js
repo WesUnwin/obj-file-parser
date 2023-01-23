@@ -28,7 +28,7 @@ class OBJFile {
     for (let i = 0; i < lines.length; i += 1) {
       const line = _stripComments(lines[i]);
 
-      const lineItems = line.replace(/\s\s+/g, ' ').trim().split(' ');
+      const lineItems = line.replace(/\s+/g, ' ').trim().split(' ');
 
       switch (lineItems[0].toLowerCase()) {
         case 'o': // Start A New Model
